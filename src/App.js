@@ -23,6 +23,9 @@ const styles = () => ({
   }
 });
 
+export const ThemeContext = React.createContext('light');
+
+
 class App extends Component {
   render() {
     const { 
@@ -30,7 +33,7 @@ class App extends Component {
 
     return (
       <div>
-        <div className={classes.title}>Todos</div>
+        <div className={classes.title}>TO DO</div>
 
         <section className={classes.container}>
           <TodosInput
@@ -51,14 +54,14 @@ class App extends Component {
             )}
           </div>
 
-          {container.quantity > 0 ?
+          {(container.quantity > 0) &&
             <TodosFooter
               visibilityFilter={container.active}
               someCompletedTodo={container.someCompletedTodo}
               changeFilterState={container.onChangeFilter}
               deleteCompletedTodos={container.onClearSelectedTodos}
               activeQuantity={container.activeQuantity}
-            /> : null}
+            />}
         </section>
       </div>
     );

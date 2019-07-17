@@ -30,16 +30,16 @@ const styles = () => ({
 
 class TodosFooter extends Component {
     render() {
-        const { classes, deleteCompletedTodos, activeQuantity, changeFilterState, someCompletedTodo } = this.props;
+        const { classes, deleteCompletedTodos, visibilityFilter, activeQuantity, changeFilterState, someCompletedTodo } = this.props;
         const isCompleted = someCompletedTodo ? null : classes.hidden ;
 
-        const filtersButton = filtersArray.map((filter, index) =>
+        const filtersButton = filtersArray.map(({value, label}, index) =>
             <Button
                 key={`key-${index}`}
-                onClick={() => changeFilterState(filter.value)}
-                className={`${classes.button} ${this.displayBorderButton(filter.value)}`}
+                onClick={() => changeFilterState(value)}
+                className={`${classes.button} ${visibilityFilter === value ? classes.activeFilter : null}`}
             >
-                {filter.label}
+                {label}
             </Button>)
 
         return (
@@ -47,17 +47,12 @@ class TodosFooter extends Component {
                 <div>{activeQuantity} items left</div>
                 <div>{filtersButton}</div>
 
+
                 <Button 
                     onClick={deleteCompletedTodos} 
                     className={isCompleted}>Clear completed</Button>
             </div>
         );
-    }
-
-    displayBorderButton = value => {
-        const { classes, visibilityFilter } = this.props;
-
-        return visibilityFilter === value ? classes.activeFilter : null;
     }
 }
 
